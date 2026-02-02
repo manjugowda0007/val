@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Choose</title>
+<title>Valentine?</title>
 
 <style>
 body{
@@ -11,14 +11,14 @@ body{
   min-height:100svh;
   display:grid;
   place-items:center;
-  background:#020617;
+  background:#0b1220;
   color:#e5e7eb;
   font-family:system-ui,-apple-system;
 }
 
 .card{
   width:min(92vw,420px);
-  background:rgba(2,6,23,.9);
+  background:rgba(11,18,32,.92);
   border-radius:22px;
   padding:26px;
   text-align:center;
@@ -26,14 +26,13 @@ body{
 }
 
 h1{
-  font-size:22px;
-  opacity:.8;
+  font-size:clamp(22px,5vw,28px);
 }
 
 .zone{
   display:flex;
-  gap:16px;
   justify-content:center;
+  gap:18px;
   margin-top:26px;
 }
 
@@ -47,18 +46,24 @@ button{
 }
 
 #yes{
-  background:#334155;
-  color:#94a3b8;
+  background:linear-gradient(135deg,#22d3ee,#6366f1);
+  color:#020617;
 }
 
 #no{
+  background:#1e293b;
+  color:#94a3b8;
+}
+
+#merge{
+  display:none;
   background:linear-gradient(135deg,#22d3ee,#6366f1);
   color:#020617;
 }
 
 #result{
   display:none;
-  margin-top:20px;
+  margin-top:22px;
   animation:fade .4s ease;
 }
 
@@ -84,35 +89,50 @@ button{
 <body>
 
 <div class="card">
-  <h1>Choose carefully.</h1>
+  <h1 id="question">Will you be my valentine? 💘</h1>
 
   <div class="zone" id="zone">
-    <button id="yes" disabled>Yes</button>
+    <button id="yes">Yes</button>
     <button id="no">No</button>
+    <button id="merge">Only one choice now</button>
   </div>
 
   <div id="result">
-    <img src="reveal.jpg" alt="reveal">
-    <div class="msg">You already chose 😉</div>
+    <img src="valentine.jpg" alt="valentine">
+    <div class="msg">I knew you’d get here 😌</div>
   </div>
 </div>
 
 <script>
-const noBtn=document.getElementById("no");
-const yesBtn=document.getElementById("yes");
-const zone=document.getElementById("zone");
-const result=document.getElementById("result");
+const question = document.getElementById("question");
+const yes = document.getElementById("yes");
+const no = document.getElementById("no");
+const merge = document.getElementById("merge");
+const result = document.getElementById("result");
 
-let tricked=false;
+let noCount = 0;
 
-noBtn.addEventListener("click",()=>{
-  if(!tricked){
-    noBtn.textContent="Yes 🙂";
-    tricked=true;
-  }else{
-    zone.style.display="none";
-    result.style.display="block";
+no.addEventListener("click",()=>{
+  noCount++;
+
+  if(noCount === 1){
+    question.textContent = "Think again 🧐";
+  } 
+  else if(noCount === 2){
+    yes.style.display = "none";
+    no.style.display = "none";
+    merge.style.display = "inline-block";
   }
+});
+
+merge.addEventListener("click",()=>{
+  merge.style.display = "none";
+  result.style.display = "block";
+});
+
+yes.addEventListener("click",()=>{
+  document.getElementById("zone").style.display="none";
+  result.style.display="block";
 });
 </script>
 
