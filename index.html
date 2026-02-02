@@ -62,20 +62,17 @@ button{
 #yes{
   background:linear-gradient(135deg,#ff4da6,#ff1f8f);
   color:white;
-  box-shadow:0 12px 30px rgba(255,0,128,.45);
 }
 
 #no{
   background:#ffe0ef;
   color:#b3005e;
-  box-shadow:0 10px 24px rgba(255,0,128,.25);
 }
 
 #merge{
   display:none;
   background:linear-gradient(135deg,#ff4da6,#ff1f8f);
   color:white;
-  box-shadow:0 14px 36px rgba(255,0,128,.5);
 }
 
 img{
@@ -116,9 +113,9 @@ img{
     <button id="merge">Only one choice now 😜💕</button>
   </div>
 
-  <!-- THANK YOU IMAGE (same think.jpg) -->
+  <!-- THINK AGAIN IMAGE -->
   <div id="thinkImgBox">
-    <img src="think.jpg" alt="thank you">
+    <img src="think.jpg" alt="think again">
   </div>
 
   <!-- FINAL RESULT -->
@@ -141,7 +138,6 @@ const intro = document.getElementById("introImgBox");
 let noCount = 0;
 let started = false;
 let thinkShown = false;
-let questionLocked = false;
 
 function startInteraction(){
   if(!started){
@@ -156,24 +152,25 @@ no.addEventListener("click", () => {
   startInteraction();
   noCount++;
 
-  if (noCount === 1 && !thinkShown && !questionLocked) {
-    question.textContent = "Thank you 🙈";
+  // FIRST NO → THINK AGAIN
+  if (noCount === 1 && !thinkShown) {
+    question.textContent = "Think again 🧐";
     thinkImgBox.style.display = "block";
     thinkShown = true;
   } 
+  // SECOND NO → THANK YOU + MERGE
   else if (noCount === 2) {
+    question.textContent = "Thank you 🙈";
     thinkImgBox.style.display = "none";
     yes.style.display = "none";
     no.style.display = "none";
     merge.style.display = "inline-block";
-    questionLocked = true;
   }
 });
 
 // YES 💖
 yes.addEventListener("click", () => {
   startInteraction();
-  questionLocked = true;
   thinkImgBox.style.display = "none";
   zone.style.display = "none";
   result.style.display = "block";
@@ -182,8 +179,6 @@ yes.addEventListener("click", () => {
 // MERGE 😜💕
 merge.addEventListener("click", () => {
   startInteraction();
-  questionLocked = true;
-  thinkImgBox.style.display = "none";
   zone.style.display = "none";
   result.style.display = "block";
 });
