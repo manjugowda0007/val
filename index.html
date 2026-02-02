@@ -95,6 +95,10 @@ img{
 </head>
 
 <body>
+<!-- INTRO IMAGE -->
+<div id="introImgBox">
+  <img src="will.jpg" alt="intro">
+</div>
 
 <div class="card">
   <h1 id="question">Will you be my valentine? 💗</h1>
@@ -102,7 +106,7 @@ img{
   <div class="zone" id="zone">
     <button id="yes">Yes 💖</button>
     <button id="no">No 🙈</button>
-    <button id="merge">Only one choice now 💕</button>
+    <button id="merge">Only one choice now 😜💕</button>
   </div>
 
   <!-- THINK AGAIN IMAGE -->
@@ -152,6 +156,15 @@ yes.addEventListener("click", () => {
   zone.style.display = "none";
   result.style.display = "block";
 });
+
+#introImgBox img{
+  width:100%;
+  max-width:360px;
+  border-radius:22px;
+  margin-bottom:18px;
+  box-shadow:0 18px 45px rgba(255,0,128,.35);
+}
+
 </script>
 
 </body>
