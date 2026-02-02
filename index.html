@@ -11,77 +11,85 @@ body{
   min-height:100svh;
   display:grid;
   place-items:center;
-  background:#0b1220;
-  color:#e5e7eb;
+  background:radial-gradient(circle at top,#ffd1e8,#ff7abf);
   font-family:system-ui,-apple-system;
 }
 
 .card{
-  width:min(92vw,420px);
-  background:rgba(11,18,32,.92);
-  border-radius:22px;
-  padding:26px;
+  width:min(94vw,480px);
+  background:rgba(255,255,255,.85);
+  border-radius:28px;
+  padding:32px 26px;
   text-align:center;
-  border:1px solid rgba(148,163,184,.2);
+  box-shadow:0 30px 80px rgba(255,0,128,.35);
+  border:2px solid rgba(255,105,180,.35);
 }
 
 h1{
-  font-size:clamp(22px,5vw,28px);
+  font-size:clamp(26px,6vw,34px);
+  color:#b3005e;
+  margin-bottom:10px;
 }
 
 .zone{
   display:flex;
   justify-content:center;
-  gap:18px;
-  margin-top:26px;
+  gap:22px;
+  margin-top:30px;
+  flex-wrap:wrap;
 }
 
 button{
-  padding:14px 26px;
-  font-size:17px;
-  font-weight:700;
+  padding:16px 34px;
+  font-size:19px;
+  font-weight:800;
   border-radius:999px;
   border:none;
   cursor:pointer;
+  transition:transform .15s ease, box-shadow .15s ease;
+}
+
+button:active{
+  transform:scale(.96);
 }
 
 #yes{
-  background:linear-gradient(135deg,#22d3ee,#6366f1);
-  color:#020617;
+  background:linear-gradient(135deg,#ff4da6,#ff1f8f);
+  color:white;
+  box-shadow:0 12px 30px rgba(255,0,128,.45);
 }
 
 #no{
-  background:#1e293b;
-  color:#94a3b8;
+  background:#ffe0ef;
+  color:#b3005e;
+  box-shadow:0 10px 24px rgba(255,0,128,.25);
 }
 
 #merge{
   display:none;
-  background:linear-gradient(135deg,#22d3ee,#6366f1);
-  color:#020617;
+  background:linear-gradient(135deg,#ff4da6,#ff1f8f);
+  color:white;
+  box-shadow:0 14px 36px rgba(255,0,128,.5);
 }
 
+img{
+  width:100%;
+  max-width:360px;
+  border-radius:22px;
+  margin-top:22px;
+  box-shadow:0 20px 50px rgba(255,0,128,.35);
+}
+
+#thinkImgBox,
 #result{
   display:none;
-  margin-top:22px;
-  animation:fade .4s ease;
-}
-
-#result img{
-  width:100%;
-  max-width:320px;
-  border-radius:18px;
-  margin-top:10px;
 }
 
 .msg{
-  margin-top:12px;
-  opacity:.75;
-}
-
-@keyframes fade{
-  from{opacity:0;transform:translateY(8px)}
-  to{opacity:1;transform:none}
+  margin-top:14px;
+  font-size:20px;
+  font-weight:600;
+  color:#b3005e;
 }
 </style>
 </head>
@@ -89,17 +97,23 @@ button{
 <body>
 
 <div class="card">
-  <h1 id="question">Will you be my valentine? 💘</h1>
+  <h1 id="question">Will you be my valentine? 💗</h1>
 
   <div class="zone" id="zone">
-    <button id="yes">Yes</button>
-    <button id="no">No</button>
-    <button id="merge">Only one choice now</button>
+    <button id="yes">Yes 💖</button>
+    <button id="no">No 🙈</button>
+    <button id="merge">Only one choice now 💕</button>
   </div>
 
+  <!-- THINK AGAIN IMAGE -->
+  <div id="thinkImgBox">
+    <img src="think.jpg" alt="think again">
+  </div>
+
+  <!-- FINAL RESULT -->
   <div id="result">
     <img src="valentine.jpg" alt="valentine">
-    <div class="msg">I knew you’d get here 😌</div>
+    <div class="msg">I knew it 😌💞</div>
   </div>
 </div>
 
@@ -108,31 +122,35 @@ const question = document.getElementById("question");
 const yes = document.getElementById("yes");
 const no = document.getElementById("no");
 const merge = document.getElementById("merge");
+const thinkImgBox = document.getElementById("thinkImgBox");
 const result = document.getElementById("result");
+const zone = document.getElementById("zone");
 
 let noCount = 0;
 
-no.addEventListener("click",()=>{
+no.addEventListener("click", () => {
   noCount++;
 
-  if(noCount === 1){
+  if (noCount === 1) {
     question.textContent = "Think again 🧐";
+    thinkImgBox.style.display = "block";
   } 
-  else if(noCount === 2){
+  else if (noCount === 2) {
     yes.style.display = "none";
     no.style.display = "none";
+    thinkImgBox.style.display = "none";
     merge.style.display = "inline-block";
   }
 });
 
-merge.addEventListener("click",()=>{
-  merge.style.display = "none";
+merge.addEventListener("click", () => {
+  zone.style.display = "none";
   result.style.display = "block";
 });
 
-yes.addEventListener("click",()=>{
-  document.getElementById("zone").style.display="none";
-  result.style.display="block";
+yes.addEventListener("click", () => {
+  zone.style.display = "none";
+  result.style.display = "block";
 });
 </script>
 
