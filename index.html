@@ -29,12 +29,11 @@ body.centered{
 
 .card{
   width:min(94vw,480px);
-  background:rgba(255,255,255,.85);
+  background:rgba(255,255,255,.88);
   border-radius:28px;
   padding:32px 26px;
   text-align:center;
   box-shadow:0 30px 80px rgba(255,0,128,.35);
-  border:2px solid rgba(255,105,180,.35);
 }
 
 h1{
@@ -137,9 +136,10 @@ const intro = document.getElementById("introImgBox");
 
 let noCount = 0;
 let started = false;
-let thinkShown = false;
+let thinkUsed = false;
+let finished = false;
 
-function startInteraction(){
+function start(){
   if(!started){
     intro.style.display = "none";
     document.body.classList.add("centered");
@@ -147,20 +147,27 @@ function startInteraction(){
   }
 }
 
+function showFinal(){
+  if(finished) return;
+  finished = true;
+  question.textContent = "Thank you 🙈";
+  thinkImgBox.style.display = "none";
+  zone.style.display = "none";
+  result.style.display = "block";
+}
+
 // NO 🙈
 no.addEventListener("click", () => {
-  startInteraction();
+  if(finished) return;
+  start();
   noCount++;
 
-  // FIRST NO → THINK AGAIN
-  if (noCount === 1 && !thinkShown) {
+  if(noCount === 1 && !thinkUsed){
     question.textContent = "Think again 🧐";
     thinkImgBox.style.display = "block";
-    thinkShown = true;
-  } 
-  // SECOND NO → THANK YOU + MERGE
-  else if (noCount === 2) {
-    question.textContent = "Thank you 🙈";
+    thinkUsed = true;
+  }
+  else if(noCount === 2){
     thinkImgBox.style.display = "none";
     yes.style.display = "none";
     no.style.display = "none";
@@ -170,17 +177,14 @@ no.addEventListener("click", () => {
 
 // YES 💖
 yes.addEventListener("click", () => {
-  startInteraction();
-  thinkImgBox.style.display = "none";
-  zone.style.display = "none";
-  result.style.display = "block";
+  start();
+  showFinal();
 });
 
 // MERGE 😜💕
 merge.addEventListener("click", () => {
-  startInteraction();
-  zone.style.display = "none";
-  result.style.display = "block";
+  start();
+  showFinal();
 });
 </script>
 
