@@ -124,7 +124,7 @@ img{
   <!-- FINAL RESULT -->
   <div id="result">
     <img src="valentine.jpg" alt="valentine">
-    <div class="msg">I love you 😁💞</div>
+    <div class="msg">I knew it 😌💞</div>
   </div>
 </div>
 
@@ -140,7 +140,7 @@ const intro = document.getElementById("introImgBox");
 
 let noCount = 0;
 let started = false;
-let thinkShown = false; // 🔒 LOCK FOR THINK IMAGE
+let thinkShown = false;
 
 function startInteraction(){
   if(!started){
@@ -150,7 +150,7 @@ function startInteraction(){
   }
 }
 
-// NO 🙈
+// NO 🙈 CLICK
 no.addEventListener("click", () => {
   startInteraction();
   noCount++;
@@ -168,16 +168,18 @@ no.addEventListener("click", () => {
   }
 });
 
-// YES 💖
+// YES 💖 CLICK
 yes.addEventListener("click", () => {
   startInteraction();
+  thinkImgBox.style.display = "none"; // 🔥 IMPORTANT FIX
   zone.style.display = "none";
   result.style.display = "block";
 });
 
-// MERGE 😜💕
+// MERGE 😜💕 CLICK
 merge.addEventListener("click", () => {
   startInteraction();
+  thinkImgBox.style.display = "none";
   zone.style.display = "none";
   result.style.display = "block";
 });
