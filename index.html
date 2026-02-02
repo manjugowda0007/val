@@ -15,6 +15,11 @@ body{
   font-family:system-ui,-apple-system;
 }
 
+/* CENTER AFTER FIRST CLICK */
+body.centered{
+  grid-template-rows: 1fr;
+}
+
 /* INTRO IMAGE */
 #introImgBox img{
   width:100%;
@@ -127,7 +132,7 @@ img{
   <!-- FINAL RESULT -->
   <div id="result">
     <img src="valentine.jpg" alt="valentine">
-    <div class="msg">I lub youu😻🫣💞</div>
+    <div class="msg">I lub you😻🫣</div>
   </div>
 </div>
 
@@ -139,10 +144,23 @@ const merge = document.getElementById("merge");
 const thinkImgBox = document.getElementById("thinkImgBox");
 const result = document.getElementById("result");
 const zone = document.getElementById("zone");
+const intro = document.getElementById("introImgBox");
 
 let noCount = 0;
+let started = false;
 
+// Hide intro + center everything
+function startInteraction(){
+  if(!started){
+    intro.style.display = "none";
+    document.body.classList.add("centered");
+    started = true;
+  }
+}
+
+// NO 🙈 CLICK
 no.addEventListener("click", () => {
+  startInteraction();
   noCount++;
 
   if (noCount === 1) {
@@ -157,12 +175,16 @@ no.addEventListener("click", () => {
   }
 });
 
-merge.addEventListener("click", () => {
+// YES 💖 CLICK
+yes.addEventListener("click", () => {
+  startInteraction();
   zone.style.display = "none";
   result.style.display = "block";
 });
 
-yes.addEventListener("click", () => {
+// MERGE 😜💕 CLICK
+merge.addEventListener("click", () => {
+  startInteraction();
   zone.style.display = "none";
   result.style.display = "block";
 });
@@ -170,4 +192,3 @@ yes.addEventListener("click", () => {
 
 </body>
 </html>
-
