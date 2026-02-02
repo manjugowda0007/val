@@ -15,12 +15,10 @@ body{
   font-family:system-ui,-apple-system;
 }
 
-/* CENTER AFTER FIRST CLICK */
 body.centered{
-  grid-template-rows: 1fr;
+  grid-template-rows:1fr;
 }
 
-/* INTRO IMAGE */
 #introImgBox img{
   width:100%;
   max-width:360px;
@@ -42,7 +40,6 @@ body.centered{
 h1{
   font-size:clamp(26px,6vw,34px);
   color:#b3005e;
-  margin-bottom:10px;
 }
 
 .zone{
@@ -60,11 +57,6 @@ button{
   border-radius:999px;
   border:none;
   cursor:pointer;
-  transition:transform .15s ease, box-shadow .15s ease;
-}
-
-button:active{
-  transform:scale(.96);
 }
 
 #yes{
@@ -132,7 +124,7 @@ img{
   <!-- FINAL RESULT -->
   <div id="result">
     <img src="valentine.jpg" alt="valentine">
-    <div class="msg">I lub you😻🫣</div>
+    <div class="msg">I knew it 😌💞</div>
   </div>
 </div>
 
@@ -148,8 +140,8 @@ const intro = document.getElementById("introImgBox");
 
 let noCount = 0;
 let started = false;
+let thinkShown = false; // 🔒 LOCK FOR THINK IMAGE
 
-// Hide intro + center everything
 function startInteraction(){
   if(!started){
     intro.style.display = "none";
@@ -158,31 +150,32 @@ function startInteraction(){
   }
 }
 
-// NO 🙈 CLICK
+// NO 🙈
 no.addEventListener("click", () => {
   startInteraction();
   noCount++;
 
-  if (noCount === 1) {
+  if (noCount === 1 && !thinkShown) {
     question.textContent = "Think again 🧐";
     thinkImgBox.style.display = "block";
+    thinkShown = true;
   } 
   else if (noCount === 2) {
+    thinkImgBox.style.display = "none";
     yes.style.display = "none";
     no.style.display = "none";
-    thinkImgBox.style.display = "none";
     merge.style.display = "inline-block";
   }
 });
 
-// YES 💖 CLICK
+// YES 💖
 yes.addEventListener("click", () => {
   startInteraction();
   zone.style.display = "none";
   result.style.display = "block";
 });
 
-// MERGE 😜💕 CLICK
+// MERGE 😜💕
 merge.addEventListener("click", () => {
   startInteraction();
   zone.style.display = "none";
